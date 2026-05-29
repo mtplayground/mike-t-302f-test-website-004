@@ -1,10 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #f7f7f4;
+  --color-foreground: #1d2522;
+  --color-muted: #5e6a65;
+  --color-accent: #0f766e;
+  --color-surface: #ffffff;
+  --font-sans: Arial, Helvetica, sans-serif;
+}
+
 :root {
   color-scheme: light;
-  --background: #f7f7f4;
-  --foreground: #1d2522;
-  --muted: #5e6a65;
-  --accent: #0f766e;
-  --surface: #ffffff;
 }
 
 * {
@@ -18,49 +24,7 @@ body {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-}
-
-.page-shell {
-  display: grid;
-  min-height: 100vh;
-  place-items: center;
-  padding: 32px;
-}
-
-.intro {
-  width: min(100%, 760px);
-  border: 1px solid #d9ded9;
-  border-radius: 8px;
-  background: var(--surface);
-  padding: clamp(32px, 7vw, 72px);
-  box-shadow: 0 24px 70px rgb(29 37 34 / 10%);
-}
-
-.eyebrow {
-  margin: 0 0 16px;
-  color: var(--accent);
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0;
-  text-transform: uppercase;
-}
-
-h1 {
-  margin: 0;
-  font-size: clamp(2.25rem, 8vw, 4.75rem);
-  line-height: 1;
-  overflow-wrap: anywhere;
-}
-
-p {
-  margin: 24px 0 0;
-  color: var(--muted);
-  font-size: 1.125rem;
-  line-height: 1.7;
+  background: #f7f7f4;
+  color: #1d2522;
+  font-family: Arial, Helvetica, sans-serif;
 }

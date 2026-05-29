@@ -2,6 +2,7 @@ target/
 node_modules/
 .next/
 tsconfig.tsbuildinfo
+.env.production
 .gh_token
 .claude/
 .database_url
