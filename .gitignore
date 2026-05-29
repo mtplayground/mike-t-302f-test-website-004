@@ -2,7 +2,12 @@ target/
 node_modules/
 .next/
 tsconfig.tsbuildinfo
+.env
+.env.local
+.env.development.local
+.env.test.local
 .env.production
+.env.production.local
 .gh_token
 .claude/
 .database_url
