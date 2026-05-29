@@ -1,7 +1,8 @@
 export const requiredServerEnvKeys = [
   "DATABASE_URL",
   "EMAIL_API_KEY",
-  "NOTIFICATION_RECIPIENT"
+  "NOTIFICATION_RECIPIENT",
+  "NOTIFICATION_SENDER"
 ] as const;
 
 export type RequiredServerEnvKey = (typeof requiredServerEnvKeys)[number];
@@ -10,6 +11,7 @@ export type ServerEnv = {
   DATABASE_URL: string;
   EMAIL_API_KEY: string;
   NOTIFICATION_RECIPIENT: string;
+  NOTIFICATION_SENDER: string;
 };
 
 type EnvSource = Record<string, string | undefined>;
@@ -60,10 +62,25 @@ export function getNotificationRecipient(source: EnvSource = process.env) {
   return recipient;
 }
 
+export function getNotificationSender(source: EnvSource = process.env) {
+  const sender = getRequiredEnv("NOTIFICATION_SENDER", source);
+  const senderPattern =
+    /^.+<[^<>\s@]+@[^<>\s@]+\.[^<>\s@]+>$|^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!senderPattern.test(sender)) {
+    throw new Error(
+      "NOTIFICATION_SENDER must be an email address or a display name with an email address."
+    );
+  }
+
+  return sender;
+}
+
 export function getServerEnv(source: EnvSource = process.env): ServerEnv {
   return {
     DATABASE_URL: getDatabaseUrl(source),
     EMAIL_API_KEY: getEmailApiKey(source),
-    NOTIFICATION_RECIPIENT: getNotificationRecipient(source)
+    NOTIFICATION_RECIPIENT: getNotificationRecipient(source),
+    NOTIFICATION_SENDER: getNotificationSender(source)
   };
 }

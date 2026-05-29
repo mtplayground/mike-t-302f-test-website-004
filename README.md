@@ -7,8 +7,9 @@ test-website-004
 Required server environment variables are documented in `.env.example`:
 
 - `DATABASE_URL`: PostgreSQL connection string used by Prisma.
-- `EMAIL_API_KEY`: API key for the email provider used by lead notifications.
+- `EMAIL_API_KEY`: Resend API key used by lead notifications.
 - `NOTIFICATION_RECIPIENT`: email address that receives lead notifications.
+- `NOTIFICATION_SENDER`: verified sender address configured in Resend.
 - `NEXT_PUBLIC_SITE_URL`: public canonical URL used by metadata, Open Graph,
   Twitter cards, sitemap, and robots output.
 
@@ -34,8 +35,9 @@ Deployment checklist:
 
 - Set `DATABASE_URL` to the PostgreSQL connection string in the runtime
   environment.
-- Set `EMAIL_API_KEY` and `NOTIFICATION_RECIPIENT` before enabling lead
-  notification delivery.
+- Set `EMAIL_API_KEY`, `NOTIFICATION_RECIPIENT`, and
+  `NOTIFICATION_SENDER` before enabling lead notification delivery. The sender
+  must be verified in Resend.
 - Set `NEXT_PUBLIC_SITE_URL` to the public origin, for example
   `https://example.com`, so metadata, sitemap, and robots URLs are absolute.
 - Run database migrations before starting a new deployment:
