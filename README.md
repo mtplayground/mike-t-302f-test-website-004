@@ -11,3 +11,21 @@ Required server environment variables are documented in `.env.example`:
 - `NOTIFICATION_RECIPIENT`: email address that receives lead notifications.
 
 Real environment files are ignored by git.
+
+## Self-hosted build
+
+Build the standalone file tree:
+
+```bash
+npm run build:self-hosted
+```
+
+Run the generated server on `0.0.0.0:8080`:
+
+```bash
+npm run start:self-hosted
+```
+
+The self-hosted runtime entrypoint is `.next/standalone/server.js`.
+Runtime secrets should be provided by the host environment; local env files are
+removed from the prepared standalone directory.

@@ -5,12 +5,14 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 8080",
     "build": "next build",
+    "build:self-hosted": "next build && node scripts/prepare-standalone.mjs",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
-    "start": "next start -H 0.0.0.0 -p 8080",
+    "start": "HOSTNAME=0.0.0.0 PORT=8080 node .next/standalone/server.js",
+    "start:self-hosted": "HOSTNAME=0.0.0.0 PORT=8080 node .next/standalone/server.js",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
