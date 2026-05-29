@@ -1,0 +1,2 @@
+-- Baseline migration for the initial empty PostgreSQL schema.
+-- No tables are created until data models are introduced by later issues.
