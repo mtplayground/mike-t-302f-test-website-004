@@ -3,7 +3,8 @@ import { initialLeadSubmissionState } from "@/lib/lead";
 
 const mocks = vi.hoisted(() => ({
   createLead: vi.fn(),
-  headers: vi.fn()
+  headers: vi.fn(),
+  sendLeadNotification: vi.fn()
 }));
 
 vi.mock("@/lib/db", () => ({
@@ -16,6 +17,10 @@ vi.mock("@/lib/db", () => ({
 
 vi.mock("next/headers", () => ({
   headers: mocks.headers
+}));
+
+vi.mock("@/lib/email", () => ({
+  sendLeadNotification: mocks.sendLeadNotification
 }));
 
 import { submitLead } from "@/app/actions/lead";
@@ -42,6 +47,7 @@ describe("submitLead", () => {
   beforeEach(() => {
     mocks.createLead.mockReset();
     mocks.headers.mockReset();
+    mocks.sendLeadNotification.mockReset();
     mocks.headers.mockResolvedValue(
       new Headers({
         "x-forwarded-for": "203.0.113.10"
@@ -69,10 +75,12 @@ describe("submitLead", () => {
     });
     expect(mocks.headers).not.toHaveBeenCalled();
     expect(mocks.createLead).not.toHaveBeenCalled();
+    expect(mocks.sendLeadNotification).not.toHaveBeenCalled();
   });
 
-  it("persists valid lead data and returns the lead id", async () => {
+  it("persists valid lead data, sends a notification, and returns the lead id", async () => {
     mocks.createLead.mockResolvedValue({ id: "lead_123" });
+    mocks.sendLeadNotification.mockResolvedValue(undefined);
 
     const result = await submitLead(
       initialLeadSubmissionState,
@@ -91,6 +99,14 @@ describe("submitLead", () => {
       },
       select: {
         id: true
+      }
+    });
+    expect(mocks.sendLeadNotification).toHaveBeenCalledWith({
+      leadId: "lead_123",
+      lead: {
+        name: "Katherine Johnson",
+        email: "katherine@example.com",
+        message: "I need a launch plan."
       }
     });
     expect(result).toEqual({
@@ -121,6 +137,34 @@ describe("submitLead", () => {
       status: "error",
       fieldErrors: {},
       formError: "We could not save your message. Please try again."
+    });
+    expect(mocks.sendLeadNotification).not.toHaveBeenCalled();
+  });
+
+  it("returns success when the saved lead notification fails", async () => {
+    const consoleError = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+    mocks.createLead.mockResolvedValue({ id: "lead_456" });
+    mocks.sendLeadNotification.mockRejectedValue(
+      new Error("resend unavailable")
+    );
+
+    const result = await submitLead(
+      initialLeadSubmissionState,
+      buildFormData({
+        name: "Dorothy Vaughan",
+        email: "dorothy@example.com"
+      })
+    );
+
+    expect(consoleError).toHaveBeenCalledWith(
+      "Failed to send lead notification.",
+      expect.any(Error)
+    );
+    expect(result).toEqual({
+      status: "success",
+      leadId: "lead_456"
     });
   });
 });

@@ -2,6 +2,7 @@
 
 import { headers } from "next/headers";
 import { prisma } from "@/lib/db";
+import { sendLeadNotification } from "@/lib/email";
 import { type LeadSubmissionState, validateLeadFormData } from "@/lib/lead";
 import { checkLeadSubmissionRateLimit, hasFilledHoneypot } from "@/lib/spam";
 
@@ -65,6 +66,15 @@ export async function submitLead(
         id: true
       }
     });
+
+    try {
+      await sendLeadNotification({
+        leadId: lead.id,
+        lead: validation.data
+      });
+    } catch (error) {
+      console.error("Failed to send lead notification.", error);
+    }
 
     return {
       status: "success",
