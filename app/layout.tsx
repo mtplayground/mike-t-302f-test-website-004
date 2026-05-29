@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { MarketingLayout } from "@/components/layout";
+import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "mike-t-302f-test-website-004",
-  description: "Baseline Next.js App Router application."
+  title: siteConfig.name,
+  description: siteConfig.description
 };
 
 export default function RootLayout({
@@ -13,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <MarketingLayout>{children}</MarketingLayout>
+      </body>
     </html>
   );
 }
