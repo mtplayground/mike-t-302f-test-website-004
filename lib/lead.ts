@@ -34,7 +34,7 @@ export type LeadValidationResult =
       fieldErrors: LeadSubmissionFieldErrors;
     };
 
-const maxLengths = {
+export const leadSubmissionMaxLengths = {
   name: 100,
   email: 254,
   message: 1000
@@ -59,18 +59,21 @@ export function validateLeadFormData(formData: FormData): LeadValidationResult {
 
   if (!name) {
     fieldErrors.name = "Name is required.";
-  } else if (name.length > maxLengths.name) {
-    fieldErrors.name = `Name must be ${maxLengths.name} characters or fewer.`;
+  } else if (name.length > leadSubmissionMaxLengths.name) {
+    fieldErrors.name = `Name must be ${leadSubmissionMaxLengths.name} characters or fewer.`;
   }
 
   if (!email) {
     fieldErrors.email = "Email is required.";
-  } else if (email.length > maxLengths.email || !emailPattern.test(email)) {
+  } else if (
+    email.length > leadSubmissionMaxLengths.email ||
+    !emailPattern.test(email)
+  ) {
     fieldErrors.email = "Enter a valid email address.";
   }
 
-  if (message.length > maxLengths.message) {
-    fieldErrors.message = `Message must be ${maxLengths.message} characters or fewer.`;
+  if (message.length > leadSubmissionMaxLengths.message) {
+    fieldErrors.message = `Message must be ${leadSubmissionMaxLengths.message} characters or fewer.`;
   }
 
   if (Object.keys(fieldErrors).length > 0) {
