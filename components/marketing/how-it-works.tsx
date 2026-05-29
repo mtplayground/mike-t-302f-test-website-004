@@ -29,13 +29,13 @@ const lifecycleSteps = [
 
 export function HowItWorks() {
   return (
-    <Section spacing="lg">
+    <Section id="how-it-works" spacing="lg">
       <Container>
         <div className="max-w-3xl">
           <p className="mb-4 text-sm font-bold tracking-[0.14em] text-accent uppercase">
             Autonomous SDLC
           </p>
-          <h2 className="text-4xl leading-tight font-bold text-foreground sm:text-5xl">
+          <h2 className="text-3xl leading-tight font-bold text-foreground sm:text-5xl">
             Plan, build, deploy, and operate as one continuous loop.
           </h2>
           <p className="mt-5 text-lg leading-8 text-muted">
@@ -48,7 +48,7 @@ export function HowItWorks() {
         <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {lifecycleSteps.map((item) => (
             <article
-              className="rounded-lg border border-[#dce3de] bg-surface p-6"
+              className="rounded-lg border border-[#dce3de] bg-surface p-5 sm:p-6"
               key={item.title}
             >
               <p className="text-sm font-bold text-accent">{item.step}</p>

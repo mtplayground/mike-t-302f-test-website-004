@@ -27,7 +27,7 @@ export function ValueProposition() {
             <p className="mb-4 text-sm font-bold tracking-[0.14em] text-accent uppercase">
               Founder leverage
             </p>
-            <h2 className="max-w-2xl text-4xl leading-tight font-bold text-foreground sm:text-5xl">
+            <h2 className="max-w-2xl text-3xl leading-tight font-bold text-foreground sm:text-5xl">
               Software work moves forward while you stay focused on decisions.
             </h2>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
@@ -40,7 +40,7 @@ export function ValueProposition() {
           <div className="grid gap-4">
             {ownershipPoints.map((point) => (
               <article
-                className="rounded-lg border border-[#dce3de] bg-background p-6"
+                className="rounded-lg border border-[#dce3de] bg-background p-5 sm:p-6"
                 key={point.title}
               >
                 <h3 className="text-xl font-bold text-foreground">

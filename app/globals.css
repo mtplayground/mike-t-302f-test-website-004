@@ -23,6 +23,11 @@ body {
   margin: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
 body {
   background: #f7f7f4;
   color: #1d2522;
