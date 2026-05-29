@@ -11,7 +11,8 @@ const spacingClasses = {
 const toneClasses = {
   default: "bg-background",
   surface: "bg-surface",
-  muted: "bg-[#eef2ee]"
+  muted: "bg-[#eef2ee]",
+  foreground: "bg-foreground"
 } as const;
 
 export type SectionProps = ComponentPropsWithoutRef<"section"> & {

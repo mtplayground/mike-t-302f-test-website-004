@@ -1,4 +1,9 @@
-import { Hero, HowItWorks, ValueProposition } from "@/components/marketing";
+import {
+  FinalCta,
+  Hero,
+  HowItWorks,
+  ValueProposition
+} from "@/components/marketing";
 
 export default function Home() {
   return (
@@ -6,6 +11,7 @@ export default function Home() {
       <Hero />
       <ValueProposition />
       <HowItWorks />
+      <FinalCta />
     </>
   );
 }
