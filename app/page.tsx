@@ -1,5 +1,11 @@
-import { Hero } from "@/components/marketing";
+import { Hero, HowItWorks, ValueProposition } from "@/components/marketing";
 
 export default function Home() {
-  return <Hero />;
+  return (
+    <>
+      <Hero />
+      <ValueProposition />
+      <HowItWorks />
+    </>
+  );
 }
